@@ -1,0 +1,173 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster+Two:wght@400;700&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+:root {
+  --primaryPurple: #646ff0;
+  --primaryRose: #be123c;
+  --black-1: #646681;
+  --black-2: #585858;
+  --bg-1: #f8f8ff;
+  --bg-2: #ecedf6;
+  --bg-3: #cccdde;
+  --gray-1: #eee;
+  --gray-2: #dedfe1;
+  --black: black;
+  --white: white;
+  --red: red;
+  --rose-500: #f43f5e;
+  --rose-600: #e11d48;
+  --rose-700: #be123c;
+  --blue-500: #3b82f6;
+  --blue-600: #2563eb;
+  --blue-700: #1d4ed8;
+  --sky-500: #0ea5e9;
+  --sky-600: #0284c7;
+  --sky-700: #0369a1;
+  --gray-500: #64748b;
+  --gray-600: #475569;
+  --gray-700: #334155;
+}
+
+/* 
+--toastify-color-light: #fff;
+    --toastify-color-dark: #121212;
+    --toastify-color-info: #3498db;
+    --toastify-color-success: #07bc0c;
+    --toastify-color-warning: #f1c40f;
+    --toastify-color-error: #e74c3c;
+    --toastify-color-transparent: rgba(255, 255, 255, 0.7);
+    --toastify-icon-color-info: var(--toastify-color-info);
+    --toastify-icon-color-success: var(--toastify-color-success);
+    --toastify-icon-color-warning: var(--toastify-color-warning);
+    --toastify-icon-color-error: var(--toastify-color-error);
+    --toastify-toast-width: 320px;
+    --toastify-toast-background: #fff;
+    --toastify-toast-min-height: 64px;
+    --toastify-toast-max-height: 800px;
+    --toastify-font-family: sans-serif;
+    --toastify-z-index: 9999;
+    --toastify-text-color-light: #757575;
+    --toastify-text-color-dark: #fff;
+    --toastify-text-color-info: #fff;
+    --toastify-text-color-success: #fff;
+    --toastify-text-color-warning: #fff;
+    --toastify-text-color-error: #fff;
+    --toastify-spinner-color: #616161;
+    --toastify-spinner-color-empty-area: #e0e0e0;
+    --toastify-color-progress-light: linear-gradient( to right, #4cd964, #5ac8fa, #007aff, #34aadc, #5856d6, #ff2d55 );
+    --toastify-color-progress-dark: #bb86fc;
+    --toastify-color-progress-info: var(--toastify-color-info);
+    --toastify-color-progress-success: var(--toastify-color-success);
+    --toastify-color-progress-warning: var(--toastify-color-warning);
+    --toastify-color-progress-error: var(--toastify-color-error);
+*/
+body {
+  padding: 50px;
+  background-color: var(--gray-500);
+}
+.brand {
+  font-family: 'lobster' cursive monospace;
+}
+
+.cardImg {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+}
+
+.center {
+  justify-content: center;
+  align-items: center;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* form validation */
+.container {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.label {
+  color: var(--white);
+}
+
+.inputVal {
+  width: 100%;
+  color: var(--gray-700);
+  padding: 10px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.inputVal:focus {
+  border: 1px solid var(--gray-700);
+}
+
+.title {
+  font-size: 30px;
+  text-align: center;
+  font-weight: 500;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+}
+
+.checkbox {
+  width: 16px;
+  height: 16px;
+  outline: none;
+  border: none;
+  margin-top: 10px;
+}
+/* button */
+.btn-m {
+  display: inline-block;
+  background-color: var(--sky-700);
+  color: var(--white);
+  padding: 8px 15px;
+  font-size: 18px;
+  font-weight: normal;
+  margin-top: 20px;
+  border: none;
+  outline: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.btn-m:hover {
+  background-color: var(--sky-600);
+}
+.btn-fw {
+  width: 100%;
+}
+
+.errMsg {
+  color: var(--rose-700);
+}
+
+.inputTag {
+  width: 100%;
+  color: var(--gray-700);
+  padding: 10px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  font-size: 16px;
+}

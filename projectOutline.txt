@@ -1,0 +1,11 @@
+DEV MANAGER
+CRUD project
+=============
+//form handling
+//remote API server connection and handling
+//Routing
+//Context API
+//Authentications (Registration, Login, Logout)
+//Advance login - forgot password, reset password, email sending (server less)
+//image uploading
+//securely identity the user (Authorization)
