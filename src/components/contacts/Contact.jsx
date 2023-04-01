@@ -1,6 +1,7 @@
 import { format } from 'date-fns'
 import { Button, Card, ListGroup } from 'react-bootstrap'
 import { FaEye, FaRegTrashAlt } from 'react-icons/fa'
+import { Link } from 'react-router-dom'
 
 const Contact = ({ contact, deleteContact }) => {
   const { firstName, lastName, email, profession, dateOfBirth, image, id } =
@@ -23,7 +24,7 @@ const Contact = ({ contact, deleteContact }) => {
                   : dateOfBirth}
               </ListGroup.Item>
             </ListGroup>
-            <Card.Link>
+            <Card.Link as={Link} to={`/contacts/${id}`}>
               <Button variant="warning ms-3 mt-2" size="md">
                 <FaEye />
               </Button>

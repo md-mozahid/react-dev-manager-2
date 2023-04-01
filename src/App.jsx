@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from 'uuid'
 import Contacts from './components/contacts/Contacts'
 import MainNavbar from './layout/MainNavbar'
 import AddContact from './pages/AddContact'
+import ContactDetails from './pages/ContactDetails'
 import EditContact from './pages/EditContact'
 import Home from './pages/Home'
 import Login from './pages/Login'
@@ -34,6 +35,7 @@ function App() {
       if (contact.id === id) {
         // update
         return {
+          id,
           ...updateContact,
         }
       } else {
@@ -42,7 +44,7 @@ function App() {
     })
     setContacts(contactsWithUpdate)
   }
-  
+
   const deleteContact = (id) => {
     const updatedContacts = contacts.filter((contact) => contact.id !== id)
     setContacts(updatedContacts)
@@ -70,6 +72,10 @@ function App() {
           <Route
             path="add-contact"
             element={<AddContact addContact={addContact} />}
+          />
+          <Route
+            path="contacts/:id"
+            element={<ContactDetails contacts={contacts} deleteContact={deleteContact} />}
           />
           <Route
             path="edit-contact/:id"
