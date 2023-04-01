@@ -35,11 +35,11 @@ const MainNavbar = () => {
               Services
             </NavLink>
             <NavLink
-              to="Portfolio"
+              to="add-contact"
               className={({ isActive }) =>
                 isActive ? 'active nav-link' : 'nav-link'
               }>
-              Portfolio
+              AddContact
             </NavLink>
             <NavLink
               to="Contact"
