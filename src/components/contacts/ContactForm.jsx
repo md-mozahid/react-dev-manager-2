@@ -12,7 +12,7 @@ const initialData = {
   image: '',
 }
 
-const AddContact = ({ addContact }) => {
+const ContactForm = ({ addContact }) => {
   const [contact, setContact] = useState(initialData)
   const [submitted, setSubmitted] = useState(false)
   const [errors, setErrors] = useState(false)
@@ -214,4 +214,4 @@ const AddContact = ({ addContact }) => {
   )
 }
 
-export default AddContact
+export default ContactForm

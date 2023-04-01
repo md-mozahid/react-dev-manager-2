@@ -1,14 +1,14 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
+import ContactForm from '../components/contacts/ContactForm'
 import { UserContext } from '../useContext/Context'
-import AddContact from './AddContact'
 
 const EditContact = () => {
   const { contacts } = UserContext()
   console.log(contacts)
   const { id } = useParams()
 
-  return <AddContact />
+  return <ContactForm />
 }
 
 export default EditContact

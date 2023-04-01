@@ -1,17 +1,16 @@
 import React, { useState } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { toast, ToastContainer } from 'react-toastify'
-import AddContact from './contacts/AddContact'
-import Contacts from './contacts/Contacts'
-import EditContact from './contacts/EditContact'
-import About from './layout/About'
-import Home from './layout/Home'
-import Login from './layout/Login'
-import MainNavbar from './layout/MainNavbar'
-import NotFound from './layout/NotFound'
-import RegistrationForm from './layout/RegistrationForm'
-import { UserData } from './userData/UserData'
+import { ToastContainer, toast } from 'react-toastify'
 import { v4 as uuidv4 } from 'uuid'
+import ContactForm from './components/contacts/ContactForm'
+import Contacts from './components/contacts/Contacts'
+import MainNavbar from './layout/MainNavbar'
+import EditContact from './pages/EditContact'
+import Home from './pages/Home'
+import Login from './pages/Login'
+import NotFound from './pages/NotFound'
+import RegistrationForm from './pages/RegistrationForm'
+import { UserData } from './userData/UserData'
 
 function App() {
   const [contacts, setContacts] = useState(UserData)
@@ -53,10 +52,10 @@ function App() {
               <Contacts contacts={contacts} deleteContact={deleteContact} />
             }
           />
-          <Route path="about" element={<About />} />
+
           <Route
             path="add-contact"
-            element={<AddContact addContact={addContact} />}
+            element={<ContactForm addContact={addContact} />}
           />
           <Route path="edit-contact/:id" element={<EditContact />} />
           <Route path="login" element={<Login />} />
