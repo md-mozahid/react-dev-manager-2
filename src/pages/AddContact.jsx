@@ -1,8 +1,9 @@
 import React from 'react'
+import ContactForm from '../components/contacts/ContactForm'
 
-const AddContact = () => {
+const AddContact = ({addContact}) => {
   return (
-    <div>AddContact</div>
+    <ContactForm addContact={addContact} />
   )
 }
 

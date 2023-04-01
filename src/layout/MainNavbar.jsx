@@ -28,11 +28,11 @@ const MainNavbar = () => {
               About
             </NavLink>
             <NavLink
-              to="Services"
+              to="edit-contact"
               className={({ isActive }) =>
                 isActive ? 'active nav-link' : 'nav-link'
               }>
-              Services
+              EditContact
             </NavLink>
             <NavLink
               to="add-contact"

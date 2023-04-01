@@ -1,213 +1,249 @@
-import React, { useState } from 'react'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { useEffect, useState } from 'react'
 import { Button, Col, Form, Row } from 'react-bootstrap'
-import Datepicker from 'react-datepicker'
+import DatePicker from 'react-datepicker'
+import { useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import * as yup from 'yup'
+import FormTextInput from '../../layout/FormTextInput'
 
-const initialData = {
-  firstName: '',
-  lastName: '',
-  email: '',
-  profession: '',
-  dateOfBirth: '',
-  image: '',
-}
+const schema = yup
+  .object({
+    firstName: yup
+      .string()
+      .required('FirstName is Required')
+      .min(3, 'FirstName must be 3 or more in length '),
+    lastName: yup
+      .string()
+      .required('LastName is Required')
+      .min(3, 'LastName must be 3 or more in length '),
+    email: yup
+      .string()
+      .required('email is Required')
+      .email('Must be a valid email'),
+    profession: yup
+      .string()
+      .required('Profession is Required')
+      .oneOf(['developer', 'designer', 'marketer'])
+      .min(3, 'Profession must be 3 or more in length '),
+    bio: yup
+      .string()
+      .required('Bio is Required')
+      .min(10, 'Bio must be 10 or more in length ')
+      .max(300, 'Bio must be equal or less thant 300 character'),
+    image: yup
+      .string()
+      .required('profile Image URL is Required')
+      .url('Must be a valid URL'),
+    gender: yup
+      .mixed()
+      .required('Gender is required')
+      .oneOf(['male', 'female']),
+  })
+  .required()
 
-const ContactForm = ({ addContact }) => {
-  const [contact, setContact] = useState(initialData)
-  const [submitted, setSubmitted] = useState(false)
-  const [errors, setErrors] = useState(false)
+function ContactForm({ addContact, updateContact, contact }) {
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    reset,
+    formState: { errors, isSubmitting, isSubmitSuccessful },
+  } = useForm({
+    resolver: yupResolver(schema),
+  })
 
-  const { firstName, lastName, email, profession, dateOfBirth, image } = contact
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    // console.log(contact)
-    addContact(contact)
-
-    //form validation
-    const userError = {
-      firstName: '',
-      lastName: '',
-      email: '',
-      profession: '',
-      age: '',
-      image: '',
-    }
-    let isError = false
-
-    if (firstName === '') {
-      isError = true
-      userError.firstName = 'Please input first name'
-    } else if (firstName.length <= 1) {
-      isError = true
-      userError.firstName = 'Minimum 2 character'
-    }
-
-    if (lastName === '') {
-      isError = true
-      userError.lastName = 'Please input last name'
-    } else if (lastName.length <= 1) {
-      isError = true
-      userError.lastName = 'Minimum 2 character'
-    }
-
-    const emailVal = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)
-    if (email === '') {
-      isError = true
-      userError.email = 'Please input email address'
-    } else if (!emailVal) {
-      isError = true
-      userError.email = 'Invalid email address'
-    }
-
-    if (profession === '') {
-      isError = true
-      userError.profession = 'Please input profession'
-    } else if (profession.length <= 1) {
-      isError = true
-      userError.profession = 'Minimum 2 character'
-    }
-
-    if (image === '') {
-      isError = true
-      userError.image = 'Please input profile picture link'
-    }
-
-    setErrors(userError)
-    if (isError) return
-
-    setSubmitted(true)
-    setContact(initialData)
+  const navigate = useNavigate()
+  const defaultValue = {
+    firstName: contact?.firstName || 'Ahnaf',
+    lastName: contact?.lastName || 'Murtafi',
+    email: contact?.email || 'murtafi@gmail.com',
+    gender: contact?.gender || 'male',
+    profession: contact?.profession || 'developer',
+    bio: contact?.bio || 'All about myself, Modify of your own if necessary',
+    image: contact?.image || 'https://randomuser.me/api/portraits/men/75.jpg',
+    dateOfBirth:
+      (contact?.dateOfBirth && new Date(contact?.dateOfBirth)) || new Date(),
   }
 
-  const handleChange = (e) => {
-    setContact({ ...contact, [e.target.name]: e.target.value })
+  const {
+    firstName,
+    lastName,
+    email,
+    gender,
+    profession,
+    bio,
+    image,
+    dateOfBirth,
+  } = defaultValue
+
+  const [birthYear, setBirthYear] = useState(
+    dateOfBirth ? dateOfBirth : new Date()
+  )
+
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset({
+        firstName: '',
+        lastName: '',
+        email: '',
+        profession: '',
+        bio: '',
+        gender: 'male',
+        image: '',
+      })
+    }
+  }, [isSubmitSuccessful])
+
+  useEffect(() => {
+    setValue('dateOfBirth', birthYear)
+  }, [birthYear])
+
+  const onSubmit = (data) => {
+    const id = contact?.id
+
+    //adding contacts
+    if (id) {
+      toast.success('Contact is updated successfully')
+      updateContact(data, id)
+    } else {
+      //show flash message
+      toast.success('Contact is added successfully')
+      addContact(data)
+    }
+    navigate('/home')
   }
+
   return (
     <>
-      <h2 className="text-center mt-5 mb-5">Add Contact</h2>
-      {submitted && toast.success('Form submitted successfully')}
-      <Form onSubmit={handleSubmit} noValidate>
+      <h2 className="text-center mt-3 mb-3">
+        {contact?.id ? 'Edit Contact' : 'Add Contact'}
+      </h2>
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        <FormTextInput
+          name="firstName"
+          label="First Name"
+          placeholder="Enter Your First Name"
+          errors={errors}
+          register={register}
+          defaultValue={firstName}
+        />
+        <FormTextInput
+          name="lastName"
+          label="Last Name"
+          placeholder="Enter Your Last Name"
+          errors={errors}
+          register={register}
+          defaultValue={lastName}
+        />
+
+        <FormTextInput
+          name="email"
+          label="Email"
+          type="email"
+          placeholder="Enter Your Email"
+          errors={errors}
+          register={register}
+          defaultValue={email}
+        />
         <Form.Group as={Row} className="mb-3">
           <Col sm={3}>
-            <Form.Label htmlFor="firstName" column>
-              First Name :
-            </Form.Label>
-          </Col>
-          <Col sm={9}>
-            <Form.Control
-              type="firstName"
-              name="firstName"
-              id="firstName"
-              placeholder="First name"
-              value={firstName}
-              onChange={handleChange}
-            />
-          </Col>
-
-          <Col sm={3}></Col>
-          <Col sm={9}>
-            <p className="mt-2 text-danger">{errors.firstName}</p>
-          </Col>
-
-          <Col sm={3}>
-            <Form.Label htmlFor="lastName" column>
-              Last Name :
-            </Form.Label>
-          </Col>
-          <Col sm={9}>
-            <Form.Control
-              type="lastName"
-              name="lastName"
-              id="lastName"
-              placeholder="Last name"
-              value={lastName}
-              onChange={handleChange}
-            />
-          </Col>
-          <Col sm={3}></Col>
-          <Col sm={9}>
-            <p className="mt-2 text-danger">{errors.lastName}</p>
-          </Col>
-          <Col sm={3}>
-            <Form.Label htmlFor="email" column>
-              Email :
-            </Form.Label>
-          </Col>
-          <Col sm={9}>
-            <Form.Control
-              type="email"
-              name="email"
-              id="email"
-              placeholder="Email"
-              value={email}
-              onChange={handleChange}
-            />
-          </Col>
-          <Col sm={3}></Col>
-          <Col sm={9}>
-            <p className="mt-2 text-danger">{errors.email}</p>
-          </Col>
-          <Col sm={3}>
             <Form.Label htmlFor="profession" column>
-              Profession :
+              Profession
             </Form.Label>
           </Col>
           <Col sm={9}>
             <Form.Select
+              {...register('profession')}
               id="profession"
-              value={profession}
-              onChange={handleChange}
+              defaultValue={profession}
+              isInvalid={errors?.profession}
               aria-label="Select your profession">
-              <option value="">Select your profession</option>
+              <option value="" disabled>
+                Select your profession
+              </option>
               <option value="developer">Developer</option>
               <option value="designer">Designer</option>
-              <option value="engineer">Engineer</option>
-              <option value="engineer">Programer</option>
+              <option value="marketer">Markerter</option>
             </Form.Select>
+
+            <Form.Control.Feedback type="invalid" className="d-block">
+              {errors?.profession?.message}
+            </Form.Control.Feedback>
           </Col>
-          <Col sm={3}></Col>
-          <Col sm={9}>
-            <p className="mt-2 text-danger">{errors.profession}</p>
-          </Col>
-          <Col sm={3}>
-            <Form.Label htmlFor="image">Profile Picture :</Form.Label>
-          </Col>
-          <Col sm={9}>
-            <Form.Control
-              type="text"
-              name="image"
-              id="image"
-              placeholder="Profile picture link"
-              value={image}
-              onChange={handleChange}
-            />
-          </Col>
-          <Col sm={3}></Col>
-          <Col sm={9}>
-            <p className="mt-2 text-danger">{errors.image}</p>
-          </Col>
+        </Form.Group>
+        <FormTextInput
+          name="image"
+          label="Profile Picture"
+          type="url"
+          placeholder="Enter Profile picture URL"
+          errors={errors}
+          register={register}
+          defaultValue={image}
+        />
+        <Form.Group as={Row} className="mb-3">
           <Col sm={3}>
             <Form.Label htmlFor="dateOfBirth" column>
-              Date Of Birth :
+              Date of Birth
             </Form.Label>
           </Col>
           <Col sm={9}>
-            <Datepicker
-              selected={dateOfBirth}
-              // dateFormat="dd/mm/yyyy"
+            <DatePicker
+              selected={birthYear}
+              name="dateOfBirth"
+              id="dateOfBirth"
+              placeholder="Enter your Date of Birth"
+              maxDate={new Date()}
               showYearDropdown
-              scrollableYearDropdown
-              onChange={(date) => setContact({ ...contact, dateOfBirth: date })}
+              onChange={(date) => setBirthYear(date)}
             />
           </Col>
-          <Col sm={3}></Col>
-          <Col sm={9}>
-            <p className="mt-2 text-danger">{errors.dateOfBirth}</p>
-          </Col>
         </Form.Group>
-        <Button type="submit" variant="primary" size="md">
-          Add Contact
+        <Form.Group as={Row} className="mb-3">
+          <Col sm={3}>
+            <Form.Label htmlFor="gender" column>
+              Gender{' '}
+            </Form.Label>
+          </Col>
+          <Col xs="auto">
+            <Form.Check
+              type="radio"
+              label="Male"
+              value="male"
+              defaultChecked={gender === 'male'}
+              {...register('gender')}
+            />
+          </Col>
+          <Col xs="auto">
+            <Form.Check
+              type="radio"
+              label="Female"
+              value="female"
+              defaultChecked={gender === 'female'}
+              {...register('gender')}
+            />
+          </Col>
+          <Form.Control.Feedback type="invalid" className="d-block">
+            {errors?.gender?.message}
+          </Form.Control.Feedback>
+        </Form.Group>
+
+        <FormTextInput
+          name="bio"
+          label="Bio"
+          placeholder="Enter Your Bio"
+          errors={errors}
+          register={register}
+          defaultValue={bio}
+          as="textarea"
+        />
+        <Button
+          variant="primary"
+          size="md"
+          type="submit"
+          disabled={isSubmitting ? 'disabled' : ''}>
+          {contact?.id ? 'Update Contact' : 'Add Contact'}
         </Button>
       </Form>
     </>
