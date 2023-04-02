@@ -1,11 +1,15 @@
 import { format } from 'date-fns'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Button, Card, ListGroup } from 'react-bootstrap'
 import { FaPencilAlt, FaRegTrashAlt } from 'react-icons/fa'
 import { useNavigate, useParams, Link } from 'react-router-dom'
+import { ContactContext } from '../context/Contact.Context'
 
-const ContactDetails = ({ contacts, deleteContact }) => {
+const ContactDetails = ({ contacts }) => {
+  const {deleteContact} = useContext(ContactContext)
+
   const [contact, setContact] = useState({})
+
   const navigate = useNavigate()
   const { id } = useParams()
   const foundContact = contacts.find((contact) => contact.id === id)

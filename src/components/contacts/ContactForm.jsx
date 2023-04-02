@@ -112,7 +112,7 @@ function ContactForm({ addContact, updateContact, contact }) {
       toast.success('Contact is added successfully')
       addContact(data)
     }
-    navigate('/home')
+    navigate('/contact')
   }
 
   return (

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify'
 import { v4 as uuidv4 } from 'uuid'
@@ -12,9 +12,11 @@ import Login from './pages/Login'
 import NotFound from './pages/NotFound'
 import RegistrationForm from './pages/RegistrationForm'
 import { UserData } from './userData/UserData'
+import { ContactContext } from './context/Contact.Context'
 
 function App() {
   const [contacts, setContacts] = useState(UserData)
+
 
   const addContact = (contact) => {
     let contactToAdd = {
@@ -45,16 +47,7 @@ function App() {
     setContacts(contactsWithUpdate)
   }
 
-  const deleteContact = (id) => {
-    const updatedContacts = contacts.filter((contact) => contact.id !== id)
-    setContacts(updatedContacts)
-
-    toast.success('Delete successfully !', {
-      autoClose: 1000,
-      hideProgressBar: true,
-      theme: 'colored',
-    })
-  }
+  
 
   return (
     <>
@@ -66,7 +59,7 @@ function App() {
           <Route
             path="contact"
             element={
-              <Contacts contacts={contacts} deleteContact={deleteContact} />
+              <Contacts contacts={contacts} />
             }
           />
           <Route
@@ -75,7 +68,7 @@ function App() {
           />
           <Route
             path="contacts/:id"
-            element={<ContactDetails contacts={contacts} deleteContact={deleteContact} />}
+            element={<ContactDetails contacts={contacts}/>}
           />
           <Route
             path="edit-contact/:id"
