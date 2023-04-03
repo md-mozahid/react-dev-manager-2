@@ -12,7 +12,6 @@ const Contacts = () => {
         <Contact
           key={contact.id}
           contact={contact}
-          // deleteContact={deleteContact}
         />
       ))}
     </>
