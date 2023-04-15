@@ -1,22 +1,24 @@
 import { yupResolver } from '@hookform/resolvers/yup'
-import React from 'react'
+import React, { useContext } from 'react'
 import { useForm } from 'react-hook-form'
+import { Link } from 'react-router-dom'
 import * as yup from 'yup'
 import Button from '../components/Button'
 import Title from '../components/Title'
-import { Link } from 'react-router-dom'
+import { AuthContext } from '../context/AuthContext'
 
 const schema = yup.object().shape({
-  firstName: yup
-    .string()
-    .min(2, 'Min 2 character')
-    .required('Input first name'),
-  lastName: yup.string().min(2, 'Min 2 character').required('Input last name'),
-  email: yup.string().email().required('Email is required'),
+  // firstName: yup
+  //   .string()
+  //   .min(2, 'Min 2 character')
+  //   .required('Input first name'),
+  // lastName: yup.string().min(2, 'Min 2 character').required('Input last name'),
+  userName: yup.string().min(3, 'Min 2 character').required('Input last name'),
+  email: yup.string().email().lowercase().required('Email is required'),
   password: yup
     .string()
     .required('Password is required')
-    .min(4)
+    .min(6)
     .max(12)
     .matches(
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{6,})/,
@@ -29,18 +31,30 @@ const schema = yup.object().shape({
     .oneOf([yup.ref('password'), null], "Password don't match"),
 })
 
+// authentication
+
+
+
 const RegistrationForm = () => {
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
+    isSubmitting,
   } = useForm({
     resolver: yupResolver(schema),
   })
 
-  const submitForm = (data) => {
+  const { registerUser } = useContext(AuthContext)
+  
+  const onSubmit = (data) => {
     console.log(data)
+    registerUser({
+      userName: data.userName,
+      email: data.email,
+      password: data.password,
+    })
     reset()
   }
 
@@ -48,8 +62,8 @@ const RegistrationForm = () => {
     <div className="container">
       <Title>User Registration</Title>
 
-      <form onSubmit={handleSubmit(submitForm)}>
-        <input
+      <form onSubmit={handleSubmit(onSubmit)}>
+        {/* <input
           className="inputTag"
           type="text"
           placeholder="First name*"
@@ -64,7 +78,17 @@ const RegistrationForm = () => {
           placeholder="Last name*"
           {...register('lastName')}
         />
-        <p className="errMsg">{errors.lastName?.message}</p>
+        <p className="errMsg">{errors.lastName?.message}</p> */}
+
+        <input
+          className="inputTag"
+          name="userName"
+          id="userName"
+          placeholder="User name*"
+          {...register('userName')}
+          defaultValue="muzahid"
+        />
+        <p className="errMsg">{errors.userName?.message}</p>
 
         <input
           className="inputTag"
@@ -72,6 +96,7 @@ const RegistrationForm = () => {
           id="email"
           placeholder="Email*"
           {...register('email')}
+          defaultValue="ce.muzahid@gmail.com"
         />
         <p className="errMsg">{errors.email?.message}</p>
 
@@ -81,6 +106,7 @@ const RegistrationForm = () => {
           id="password"
           placeholder="Password*"
           {...register('password')}
+          defaultValue="Mm$221994"
         />
         <p className="errMsg">{errors.password?.message}</p>
 
@@ -90,6 +116,7 @@ const RegistrationForm = () => {
           id="confirmPassword"
           placeholder="Confirm Password*"
           {...register('confirmPassword')}
+          defaultValue="Mm$221994"
         />
         <p className="errMsg">{errors.confirmPassword?.message}</p>
 

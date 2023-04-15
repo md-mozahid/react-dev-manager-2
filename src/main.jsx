@@ -4,13 +4,16 @@ import 'react-datepicker/dist/react-datepicker.css'
 import ReactDOM from 'react-dom/client'
 import 'react-toastify/dist/ReactToastify.css'
 import App from './App'
-import './styles.css'
+import { AuthProvider } from './context/AuthContext'
 import { ContactProvider } from './context/Contact.Context'
+import './styles.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <ContactProvider>
-      <App />
-    </ContactProvider>
+    <AuthProvider>
+      <ContactProvider>
+        <App />
+      </ContactProvider>
+    </AuthProvider>
   </React.StrictMode>
 )
