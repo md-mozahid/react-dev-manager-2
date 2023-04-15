@@ -1,21 +1,19 @@
-import { createContext, useState } from 'react'
+import { createContext, useReducer } from 'react'
 import { toast } from 'react-toastify'
-import { v4 as uuidv4 } from 'uuid'
 import { UserData } from '../userData/UserData'
+import Reducer from './Reducer'
+import { ADD_CONTACT, DELETE_CONTACT, UPDATE_CONTACT } from './Types'
 
 //create context
 export const ContactContext = createContext()
 
 //create provider
 export const ContactProvider = ({ children }) => {
-  const [contacts, setContacts] = useState(UserData)
+  const [contacts, dispatch] = useReducer(Reducer, UserData)
 
   const addContact = (contact) => {
-    let contactToAdd = {
-      id: uuidv4(),
-      ...contact,
-    }
-    setContacts([contactToAdd, ...contacts])
+    dispatch({ type: ADD_CONTACT, payload: contact })
+
     toast.success('Contact add successfully !', {
       autoClose: 1000,
       hideProgressBar: true,
@@ -24,8 +22,7 @@ export const ContactProvider = ({ children }) => {
   }
 
   const deleteContact = (id) => {
-    const updatedContacts = contacts.filter((contact) => contact.id !== id)
-    setContacts(updatedContacts)
+    dispatch({ type: DELETE_CONTACT, payload: id })
 
     toast.success('Delete successfully !', {
       autoClose: 1000,
@@ -35,19 +32,7 @@ export const ContactProvider = ({ children }) => {
   }
 
   const updateContact = (updatedContact, id) => {
-    //update state
-    const contactsWithUpdate = contacts.map((contact) => {
-      if (contact.id === id) {
-        // update
-        return {
-          id,
-          ...updateContact,
-        }
-      } else {
-        return contact
-      }
-    })
-    setContacts(contactsWithUpdate)
+    dispatch({ type: UPDATE_CONTACT, payload: { id, updatedContact } })
   }
 
   const value = {
