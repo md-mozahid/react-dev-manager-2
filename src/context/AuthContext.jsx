@@ -1,5 +1,5 @@
 import React, { createContext, useState } from 'react'
-import { AxiosPublicInstance } from '../config/Axios'
+import { axiosPublicInstance } from '../config/axios'
 
 export const AuthContext = createContext()
 
@@ -9,7 +9,7 @@ export const AuthProvider = ({ children }) => {
 
   const registerUser = async (data) => {
     try {
-      const response = await AxiosPublicInstance.post(
+      const response = await axiosPublicInstance.post(
         '/auth/local/register',
         data
       )
@@ -17,8 +17,9 @@ export const AuthProvider = ({ children }) => {
     } catch (err) {
       console.log(err.response)
     }
+    // console.log(data)
   }
-  
+
   const login = (data) => {}
   const logOut = (data) => {}
 

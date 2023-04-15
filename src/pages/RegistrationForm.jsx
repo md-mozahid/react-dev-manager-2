@@ -4,16 +4,14 @@ import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 import * as yup from 'yup'
 import Button from '../components/Button'
-import Title from '../components/Title'
+import Input from '../components/Input'
 import { AuthContext } from '../context/AuthContext'
 
-const schema = yup.object().shape({
-  // firstName: yup
-  //   .string()
-  //   .min(2, 'Min 2 character')
-  //   .required('Input first name'),
-  // lastName: yup.string().min(2, 'Min 2 character').required('Input last name'),
-  userName: yup.string().min(3, 'Min 2 character').required('Input last name'),
+const schema = yup.object({
+  username: yup
+    .string()
+    .min(3, 'Min 3 character')
+    .required('User name is required'),
   email: yup.string().email().lowercase().required('Email is required'),
   password: yup
     .string()
@@ -33,8 +31,6 @@ const schema = yup.object().shape({
 
 // authentication
 
-
-
 const RegistrationForm = () => {
   const {
     register,
@@ -47,81 +43,68 @@ const RegistrationForm = () => {
   })
 
   const { registerUser } = useContext(AuthContext)
-  
+
   const onSubmit = (data) => {
-    console.log(data)
+    // console.log(data)
     registerUser({
-      userName: data.userName,
+      username: data.username,
       email: data.email,
       password: data.password,
     })
-    reset()
+    // reset()
   }
 
   return (
     <div className="container">
-      <Title>User Registration</Title>
+      <h1>User Registration</h1>
 
       <form onSubmit={handleSubmit(onSubmit)}>
-        {/* <input
-          className="inputTag"
-          type="text"
-          placeholder="First name*"
-          {...register('firstName')}
-        />
-        <p className="errMsg">{errors.firstName?.message}</p>
-
         <input
           className="inputTag"
-          name="lastName"
-          id="lastName"
-          placeholder="Last name*"
-          {...register('lastName')}
-        />
-        <p className="errMsg">{errors.lastName?.message}</p> */}
-
-        <input
-          className="inputTag"
-          name="userName"
-          id="userName"
+          name="username"
+          id="username"
           placeholder="User name*"
-          {...register('userName')}
+          errors={errors}
+          register={register}
           defaultValue="muzahid"
         />
-        <p className="errMsg">{errors.userName?.message}</p>
+        {/* <p className="errMsg">{errors.userName?.message}</p> */}
 
         <input
           className="inputTag"
           name="email"
           id="email"
           placeholder="Email*"
-          {...register('email')}
+          errors={errors}
+          register={register}
           defaultValue="ce.muzahid@gmail.com"
         />
-        <p className="errMsg">{errors.email?.message}</p>
+        {/* <p className="errMsg">{errors.email?.message}</p> */}
 
         <input
           className="inputTag"
           name="password"
           id="password"
           placeholder="Password*"
-          {...register('password')}
+          errors={errors}
+          register={register}
           defaultValue="Mm$221994"
         />
-        <p className="errMsg">{errors.password?.message}</p>
+        {/* <p className="errMsg">{errors.password?.message}</p> */}
 
         <input
           className="inputTag"
           name="confirmPassword"
           id="confirmPassword"
           placeholder="Confirm Password*"
-          {...register('confirmPassword')}
+          errors={errors}
+          register={register}
           defaultValue="Mm$221994"
         />
-        <p className="errMsg">{errors.confirmPassword?.message}</p>
+        {/* <p className="errMsg">{errors.confirmPassword?.message}</p> */}
 
         <Button type="submit" className="btn-m btn-fw">
-          Submit
+          Register
         </Button>
         <div className="d-flex justify-content-center text-white mt-3">
           <p>

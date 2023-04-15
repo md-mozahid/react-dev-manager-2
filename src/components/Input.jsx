@@ -1,4 +1,12 @@
-export default function Input({ type, id, name, value, placeholder, ...rest }) {
+export default function Input({
+  type,
+  id,
+  name,
+  register,
+  value,
+  placeholder,
+  ...rest
+}) {
   return (
     <input
       className="inputVal"
@@ -6,6 +14,7 @@ export default function Input({ type, id, name, value, placeholder, ...rest }) {
       name={name}
       id={id}
       value={value}
+      register={register}
       placeholder={placeholder}
       {...rest}
     />
