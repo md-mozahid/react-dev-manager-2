@@ -7,13 +7,16 @@ import App from './App'
 import { AuthProvider } from './context/AuthContext'
 import { ContactProvider } from './context/Contact.Context'
 import './styles.css'
+import { BrowserRouter } from 'react-router-dom'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <AuthProvider>
-      <ContactProvider>
-        <App />
-      </ContactProvider>
-    </AuthProvider>
+    <BrowserRouter>
+      <AuthProvider>
+        <ContactProvider>
+          <App />
+        </ContactProvider>
+      </AuthProvider>
+    </BrowserRouter>
   </React.StrictMode>
 )

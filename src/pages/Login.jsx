@@ -1,25 +1,16 @@
 import { yupResolver } from '@hookform/resolvers/yup'
-import React from 'react'
+import React, { useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 import * as yup from 'yup'
 import Button from '../components/Button'
 import Label from '../components/Label'
 import Title from '../components/Title'
+import { AuthContext } from '../context/AuthContext'
 
 const schema = yup.object({
-  email: yup
-    .string()
-    .email('Must be valid email')
-    .lowercase()
-    .required('Email is required'),
-  password: yup
-    .string()
-    .required('Password is required')
-    .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{6,})/,
-      'Min 6 Characters, Uppercase, Lowercase, Number and Special Character'
-    ),
+  email: yup.string().required('Email is required'),
+  password: yup.string().required('Password is required'),
 })
 
 export default function Login() {
@@ -31,8 +22,13 @@ export default function Login() {
     isSubmitting,
   } = useForm({ resolver: yupResolver(schema) })
 
+  const { login } = useContext(AuthContext)
+
   const onSubmit = (data) => {
-    console.log(data)
+    login({
+      identifier: data.email,
+      password: data.password,
+    })
     reset()
   }
 
@@ -48,18 +44,22 @@ export default function Login() {
             name="email"
             id="email"
             placeholder="Email*"
-            errors={errors}
             {...register('email')}
+            defaultValue="murtafi@gmail.com"
           />
+          <p className="errMsg">{errors.email?.message}</p>
 
           <Label htmlFor="password">Password :</Label>
           <input
             className="inputTag"
             name="password"
             id="password"
+            type="password"
             placeholder="Password*"
             {...register('password')}
+            defaultValue="Murtafi1@"
           />
+          <p className="errMsg">{errors.password?.message}</p>
 
           <Button type="submit" className="btn-m btn-fw">
             Login

@@ -4,7 +4,6 @@ import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 import * as yup from 'yup'
 import Button from '../components/Button'
-import Input from '../components/Input'
 import { AuthContext } from '../context/AuthContext'
 
 const schema = yup.object({
@@ -51,7 +50,7 @@ const RegistrationForm = () => {
       email: data.email,
       password: data.password,
     })
-    // reset()
+    reset()
   }
 
   return (
@@ -64,44 +63,46 @@ const RegistrationForm = () => {
           name="username"
           id="username"
           placeholder="User name*"
-          errors={errors}
-          register={register}
+          // errors={errors}
+          {...register('username')}
           defaultValue="muzahid"
         />
-        {/* <p className="errMsg">{errors.userName?.message}</p> */}
+        <p className="errMsg">{errors.userName?.message}</p>
 
         <input
           className="inputTag"
           name="email"
           id="email"
           placeholder="Email*"
-          errors={errors}
-          register={register}
+          // errors={errors}
+          {...register('email')}
           defaultValue="ce.muzahid@gmail.com"
         />
-        {/* <p className="errMsg">{errors.email?.message}</p> */}
+        <p className="errMsg">{errors.email?.message}</p>
 
         <input
           className="inputTag"
           name="password"
           id="password"
+          type="password"
           placeholder="Password*"
-          errors={errors}
-          register={register}
+          // errors={errors}
+          {...register('password')}
           defaultValue="Mm$221994"
         />
-        {/* <p className="errMsg">{errors.password?.message}</p> */}
+        <p className="errMsg">{errors.password?.message}</p>
 
         <input
           className="inputTag"
           name="confirmPassword"
           id="confirmPassword"
+          type="password"
           placeholder="Confirm Password*"
-          errors={errors}
-          register={register}
+          // errors={errors}
+          {...register('confirmPassword')}
           defaultValue="Mm$221994"
         />
-        {/* <p className="errMsg">{errors.confirmPassword?.message}</p> */}
+        <p className="errMsg">{errors.confirmPassword?.message}</p>
 
         <Button type="submit" className="btn-m btn-fw">
           Register

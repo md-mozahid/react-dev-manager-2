@@ -14,21 +14,13 @@ export const ContactProvider = ({ children }) => {
   const addContact = (contact) => {
     dispatch({ type: ADD_CONTACT, payload: contact })
 
-    toast.success('Contact add successfully !', {
-      autoClose: 1000,
-      hideProgressBar: true,
-      theme: 'colored',
-    })
+    toast.success('Contact add successfully !')
   }
 
   const deleteContact = (id) => {
     dispatch({ type: DELETE_CONTACT, payload: id })
 
-    toast.success('Delete successfully !', {
-      autoClose: 1000,
-      hideProgressBar: true,
-      theme: 'colored',
-    })
+    toast.success('Delete successfully !')
   }
 
   const updateContact = (updatedContact, id) => {
