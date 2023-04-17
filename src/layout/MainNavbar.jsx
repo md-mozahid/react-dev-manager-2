@@ -18,14 +18,14 @@ const MainNavbar = () => {
               style={{ maxHeight: '100px' }}
               navbarScroll>
               <NavLink
-                to="Home"
+                to="home"
                 className={({ isActive }) =>
                   isActive ? 'active nav-link' : 'nav-link'
                 }>
                 Home
               </NavLink>
               <NavLink
-                to="About"
+                to="about"
                 className={({ isActive }) =>
                   isActive ? 'active nav-link' : 'nav-link'
                 }>
@@ -46,11 +46,18 @@ const MainNavbar = () => {
                 AddContact
               </NavLink>
               <NavLink
-                to="Contact"
+                to="contact"
                 className={({ isActive }) =>
                   isActive ? 'active nav-link' : 'nav-link'
                 }>
                 Contact
+              </NavLink>
+              <NavLink
+                to="dashboard"
+                className={({ isActive }) =>
+                  isActive ? 'active nav-link' : 'nav-link'
+                }>
+                Dashboard
               </NavLink>
             </Nav>
           )}
@@ -59,14 +66,14 @@ const MainNavbar = () => {
             {!user && (
               <>
                 <NavLink
-                  to="Register"
+                  to="register"
                   className={({ isActive }) =>
                     isActive ? 'active nav-link' : 'nav-link'
                   }>
                   Register
                 </NavLink>
                 <NavLink
-                  to="Login"
+                  to="login"
                   className={({ isActive }) =>
                     isActive ? 'active nav-link' : 'nav-link'
                   }>
@@ -77,7 +84,7 @@ const MainNavbar = () => {
 
             {user && (
               <NavLink
-                to="Home"
+                to="home"
                 onClick={logout}
                 className={({ isActive }) =>
                   isActive ? 'active nav-link' : 'nav-link'

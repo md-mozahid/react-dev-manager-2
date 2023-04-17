@@ -1,5 +1,5 @@
 import React, { createContext, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { axiosPublicInstance } from '../config/axios'
 
@@ -13,6 +13,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(loadedUser ? loadedUser : null)
   const [token, setToken] = useState(loadedToken ? loadedToken : null)
   const navigate = useNavigate()
+  const location = useLocation()
 
   // registration
   const registerUser = async (data) => {
@@ -53,7 +54,7 @@ export const AuthProvider = ({ children }) => {
       toast.success('Login successful !')
 
       // redirecting the contact page
-      navigate('/contact')
+      navigate(location?.state?.from ? location?.state?.from : '/contact')
     } catch (err) {
       toast.error(err.response?.data?.error?.message)
     }
