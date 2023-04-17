@@ -12,6 +12,7 @@ import Login from '../pages/Login'
 import NotFound from '../pages/NotFound'
 import RegistrationForm from '../pages/RegistrationForm'
 import PrivateRoute from './PrivateRoute'
+import PublicRoute from './PublicRoute'
 
 function App() {
   return (
@@ -60,8 +61,22 @@ function App() {
             </PrivateRoute>
           }
         />
-        <Route path="login" element={<Login />} />
-        <Route path="register" element={<RegistrationForm />} />
+        <Route
+          path="register"
+          element={
+            <PublicRoute>
+              <RegistrationForm />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="login"
+          element={
+            <PublicRoute>
+              <Login />
+            </PublicRoute>
+          }
+        />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <ToastContainer autoClose={1000} hideProgressBar="true" theme="colored" />
