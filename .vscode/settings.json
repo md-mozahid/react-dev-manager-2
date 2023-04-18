@@ -1,5 +1,5 @@
 {
-  "editor.fontSize": 15,
+  "editor.fontSize": 17,
   "files.autoSave": "afterDelay",
   "emmet.triggerExpansionOnTab": true,
   "prettier.tabWidth": 2,

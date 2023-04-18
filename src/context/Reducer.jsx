@@ -1,10 +1,19 @@
 import { v4 as uuidv4 } from 'uuid'
-import { ADD_CONTACT, DELETE_CONTACT, UPDATE_CONTACT } from './Types'
+import {
+  ADD_CONTACT,
+  DELETE_CONTACT,
+  LOAD_CONTACT,
+  UPDATE_CONTACT,
+} from './Types'
 
 const contactsReducer = (state, action) => {
   const { type, payload } = action
 
   switch (type) {
+    // load contacts
+    case LOAD_CONTACT: {
+      return [...action.payload]
+    }
     // delete contact
     case DELETE_CONTACT: {
       const updatedContacts = state.filter((contact) => contact.id !== payload)

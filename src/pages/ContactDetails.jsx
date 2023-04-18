@@ -12,7 +12,8 @@ const ContactDetails = () => {
 
   const navigate = useNavigate()
   const { id } = useParams()
-  const foundContact = contacts.find((contact) => contact.id === id)
+  // hence server id is number, that why added + sign before id
+  const foundContact = contacts.find((contact) => contact.id === +id)
 
   useEffect(() => {
     if (id && foundContact) {

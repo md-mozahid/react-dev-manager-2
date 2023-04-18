@@ -5,11 +5,20 @@ import { FaEye, FaRegTrashAlt } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import { ContactContext } from '../../context/Contact.Context'
 
-const Contact = ({ contact}) => {
-  const {deleteContact} = useContext(ContactContext)
+const Contact = ({ contact }) => {
+  const { deleteContact } = useContext(ContactContext)
 
-  const { firstName, lastName, email, profession, dateOfBirth, image, id } =
-    contact
+  const {
+    id,
+    firstName,
+    lastName,
+    email,
+    profession,
+    dateOfBirth,
+    bio,
+    gender,
+    image,
+  } = contact
   return (
     <>
       <Card className="mt-3 shadow">
@@ -18,9 +27,11 @@ const Contact = ({ contact}) => {
           <Card.Body>
             <Card.Title>First Name : {firstName}</Card.Title>
             <Card.Subtitle>Last Name: {lastName}</Card.Subtitle>
+            <Card.Text>Bio: {bio}</Card.Text>
             <ListGroup>
               <ListGroup.Item>Email :{email}</ListGroup.Item>
               <ListGroup.Item>Profession :{profession}</ListGroup.Item>
+              <ListGroup.Item>Gender: {gender}</ListGroup.Item>
               <ListGroup.Item>
                 Date of Birth:{' '}
                 {dateOfBirth instanceof Object

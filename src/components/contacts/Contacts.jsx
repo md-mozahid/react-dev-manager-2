@@ -1,19 +1,21 @@
 import React, { useContext } from 'react'
-import Contact from './Contact'
 import { ContactContext } from '../../context/Contact.Context'
+import Loader from '../../loader/Loader'
+import Contact from './Contact'
 
 const Contacts = () => {
   // destructure contacts
-  const {contacts} = useContext(ContactContext)
+  const { contacts, loaded } = useContext(ContactContext)
   return (
     <>
       <h2 className="text-center">All Contacts</h2>
-      {contacts.map((contact) => (
-        <Contact
-          key={contact.id}
-          contact={contact}
-        />
-      ))}
+      {loaded ? (
+        contacts.map((contact) => (
+          <Contact key={contact.id} contact={contact} />
+        ))
+      ) : (
+        <Loader />
+      )}
     </>
   )
 }

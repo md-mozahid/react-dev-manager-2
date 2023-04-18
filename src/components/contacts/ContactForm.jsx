@@ -109,10 +109,9 @@ function ContactForm({ addContact, updateContact, contact }) {
       updateContact(data, id)
     } else {
       //show flash message
-      toast.success('Contact is added successfully')
+      
       addContact(data)
     }
-    navigate('/contact')
   }
 
   return (
@@ -165,7 +164,7 @@ function ContactForm({ addContact, updateContact, contact }) {
               </option>
               <option value="developer">Developer</option>
               <option value="designer">Designer</option>
-              <option value="marketer">Markerter</option>
+              <option value="marketer">Marketer</option>
             </Form.Select>
 
             <Form.Control.Feedback type="invalid" className="d-block">
