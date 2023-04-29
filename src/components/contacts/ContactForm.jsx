@@ -4,7 +4,7 @@ import { Button, Col, Form, Row } from 'react-bootstrap'
 import DatePicker from 'react-datepicker'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
-import { toast } from 'react-toastify'
+// import { toast } from 'react-toastify'
 import * as yup from 'yup'
 import FormTextInput from '../../layout/FormTextInput'
 
@@ -105,11 +105,11 @@ function ContactForm({ addContact, updateContact, contact }) {
 
     //adding contacts
     if (id) {
-      toast.success('Contact is updated successfully')
+      // toast.success('Contact is updated successfully')
       updateContact(data, id)
     } else {
       //show flash message
-      
+
       addContact(data)
     }
   }

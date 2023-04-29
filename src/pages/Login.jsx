@@ -45,7 +45,7 @@ export default function Login() {
             id="email"
             placeholder="Email*"
             {...register('email')}
-            defaultValue="muzahid@gmail.com"
+            defaultValue="ce.muzahid2@gmail.com"
           />
           <p className="errMsg">{errors.email?.message}</p>
 
@@ -57,7 +57,7 @@ export default function Login() {
             type="password"
             placeholder="Password*"
             {...register('password')}
-            defaultValue="Aa123@"
+            defaultValue="Mm$221994"
           />
           <p className="errMsg">{errors.password?.message}</p>
 

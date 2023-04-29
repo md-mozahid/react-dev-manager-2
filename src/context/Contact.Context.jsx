@@ -7,7 +7,7 @@ import {
 } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { axiosPrivateInstance } from '../config/axios'
+import { axiosPrivateInstance } from '../config/Axios'
 import { UserData } from '../userData/UserData'
 import { formateContact } from '../utils/formateContact'
 import { AuthContext } from './AuthContext'
@@ -50,6 +50,7 @@ export const ContactProvider = ({ children }) => {
     }
   }
 
+  // add contact
   const addContact = async (contactData) => {
     contactData = {
       author: user.id,
@@ -75,14 +76,23 @@ export const ContactProvider = ({ children }) => {
     toast.success('Contact add successfully !')
   }
 
-  const deleteContact = (id) => {
-    dispatch({ type: DELETE_CONTACT, payload: id })
+  // delete contact
+  const deleteContact = async (id) => {
+    try {
+      const response = await axiosPrivateInstance.delete(`/contacts/${id}`)
+      // console.log(response.data)
+      dispatch({ type: DELETE_CONTACT, payload: response.data.data.id })
+    } catch (err) {
+      console.log(err.response)
+    }
 
     toast.success('Delete successfully !')
   }
 
+  // update contact
   const updateContact = (updatedContact, id) => {
     dispatch({ type: UPDATE_CONTACT, payload: { id, updatedContact } })
+    toast.success('Contact is updated successfully')
   }
 
   const value = {
