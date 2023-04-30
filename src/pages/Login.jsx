@@ -66,10 +66,15 @@ export default function Login() {
           </Button>
           <div className="d-flex justify-content-center gap-5 text-white mt-3">
             <p>
-              Forgot password <a href="">Click here</a>
+              Forgot password ? <Link to="/forgot-password">Click here</Link>
             </p>
             <p>
-              New user ! <Link to="createAcc">Create account</Link>
+              New user ? <Link to="/register">Create account</Link>
+            </p>
+          </div>
+          <div className=" text-white mt-2">
+            <p>
+              Reset password ? <Link to="/reset-password">Click here</Link>
             </p>
           </div>
         </form>

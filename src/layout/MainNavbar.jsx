@@ -3,7 +3,7 @@ import { Button, Container, Form, Nav, Navbar } from 'react-bootstrap'
 import { Link, NavLink } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext'
 const MainNavbar = () => {
-  const {logout, user} = useContext(AuthContext)
+  const { logout, user } = useContext(AuthContext)
   return (
     <Navbar bg="light" expand="md">
       <Container fluid>
@@ -53,7 +53,7 @@ const MainNavbar = () => {
                 Contact
               </NavLink>
               <NavLink
-                to="dashboard"
+                to="dashboard/profile"
                 className={({ isActive }) =>
                   isActive ? 'active nav-link' : 'nav-link'
                 }>

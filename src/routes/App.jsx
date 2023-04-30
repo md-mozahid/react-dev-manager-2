@@ -11,8 +11,14 @@ import Home from '../pages/Home'
 import Login from '../pages/Login'
 import NotFound from '../pages/NotFound'
 import RegistrationForm from '../pages/RegistrationForm'
+import History from '../pages/nested/History'
+import History2 from '../pages/nested/History2'
+import Profile from '../pages/nested/Profile'
+import Security from '../pages/nested/Security'
 import PrivateRoute from './PrivateRoute'
 import PublicRoute from './PublicRoute'
+import ForgotPassword from '../pages/ForgotPassword'
+import ResetPassword from '../pages/ResetPassword'
 
 function App() {
   return (
@@ -53,14 +59,21 @@ function App() {
             </PrivateRoute>
           }
         />
+
         <Route
           path="dashboard"
           element={
             <PrivateRoute>
               <Dashboard />
             </PrivateRoute>
-          }
-        />
+          }>
+          <Route path="profile" element={<Profile />} />
+          <Route path="history" element={<History />}>
+            <Route path="history2" element={<History2 />} />
+          </Route>
+          <Route path="security" element={<Security />} />
+        </Route>
+
         <Route
           path="register"
           element={
@@ -77,6 +90,8 @@ function App() {
             </PublicRoute>
           }
         />
+        <Route path='forgot-password' element={<ForgotPassword />} />
+        <Route path='reset-password' element={<ResetPassword />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <ToastContainer autoClose={1000} hideProgressBar="true" theme="colored" />

@@ -1,17 +1,11 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import React, { useContext } from 'react'
 import { useForm } from 'react-hook-form'
-import { Link } from 'react-router-dom'
 import * as yup from 'yup'
 import Button from '../components/Button'
 import { AuthContext } from '../context/AuthContext'
 
 const schema = yup.object({
-  username: yup
-    .string()
-    .min(3, 'Min 3 character')
-    .required('User name is required'),
-  email: yup.string().email().lowercase().required('Email is required'),
   password: yup
     .string()
     .required('Password is required')
@@ -30,7 +24,7 @@ const schema = yup.object({
 
 // authentication
 
-const RegistrationForm = () => {
+const ResetPassword = () => {
   const {
     register,
     handleSubmit,
@@ -41,13 +35,10 @@ const RegistrationForm = () => {
     resolver: yupResolver(schema),
   })
 
-  const { registerUser } = useContext(AuthContext)
 
   const onSubmit = (data) => {
     // console.log(data)
     registerUser({
-      username: data.username,
-      email: data.email,
       password: data.password,
     })
     reset()
@@ -55,31 +46,9 @@ const RegistrationForm = () => {
 
   return (
     <div className="container">
-      <h1>User Registration</h1>
+      <h1>Reset Password</h1>
 
       <form onSubmit={handleSubmit(onSubmit)}>
-        <input
-          className="inputTag"
-          name="username"
-          id="username"
-          placeholder="User name*"
-          // errors={errors}
-          {...register('username')}
-          defaultValue="muzahid"
-        />
-        <p className="errMsg">{errors.userName?.message}</p>
-
-        <input
-          className="inputTag"
-          name="email"
-          id="email"
-          placeholder="Email*"
-          // errors={errors}
-          {...register('email')}
-          defaultValue="ce.muzahid@gmail.com"
-        />
-        <p className="errMsg">{errors.email?.message}</p>
-
         <input
           className="inputTag"
           name="password"
@@ -88,7 +57,6 @@ const RegistrationForm = () => {
           placeholder="Password*"
           // errors={errors}
           {...register('password')}
-          defaultValue="Mm$221994"
         />
         <p className="errMsg">{errors.password?.message}</p>
 
@@ -100,21 +68,15 @@ const RegistrationForm = () => {
           placeholder="Confirm Password*"
           // errors={errors}
           {...register('confirmPassword')}
-          defaultValue="Mm$221994"
         />
         <p className="errMsg">{errors.confirmPassword?.message}</p>
 
         <Button type="submit" className="btn-m btn-fw">
-          Register
+          Reset Password
         </Button>
-        <div className="d-flex justify-content-center text-white mt-3">
-          <p>
-            Already have an account ? <Link className='' to="/login">Login</Link> instead
-          </p>
-        </div>
       </form>
     </div>
   )
 }
 
-export default RegistrationForm
+export default ResetPassword
