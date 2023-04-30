@@ -31,9 +31,11 @@ export const ContactProvider = ({ children }) => {
 
   useEffect(() => {
     ;(async () => {
-      await loadContacts()
+      if (user) {
+        await loadContacts()
+      }
     })()
-  }, [])
+  }, [user])
 
   // load contacts from server
   const loadContacts = async () => {

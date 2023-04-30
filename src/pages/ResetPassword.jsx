@@ -54,7 +54,7 @@ const ResetPassword = () => {
           name="password"
           id="password"
           type="password"
-          placeholder="Password*"
+          placeholder="New password*"
           // errors={errors}
           {...register('password')}
         />
@@ -65,7 +65,7 @@ const ResetPassword = () => {
           name="confirmPassword"
           id="confirmPassword"
           type="password"
-          placeholder="Confirm Password*"
+          placeholder="Confirm new password*"
           // errors={errors}
           {...register('confirmPassword')}
         />

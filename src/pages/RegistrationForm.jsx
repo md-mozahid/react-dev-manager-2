@@ -97,7 +97,7 @@ const RegistrationForm = () => {
           name="confirmPassword"
           id="confirmPassword"
           type="password"
-          placeholder="Confirm Password*"
+          placeholder="Confirm password*"
           // errors={errors}
           {...register('confirmPassword')}
           defaultValue="Mm$221994"
