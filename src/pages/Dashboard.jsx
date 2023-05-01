@@ -17,6 +17,9 @@ const Dashboard = () => {
               <ListGroup.Item action as={NavLink} to="history">
                 History
               </ListGroup.Item>
+              <ListGroup.Item action as={NavLink} to="contact-list">
+                Contact List
+              </ListGroup.Item>
               <ListGroup.Item action as={NavLink} to="security">
                 Security
               </ListGroup.Item>

@@ -19,6 +19,7 @@ import PrivateRoute from './PrivateRoute'
 import PublicRoute from './PublicRoute'
 import ForgotPassword from '../pages/ForgotPassword'
 import ResetPassword from '../pages/ResetPassword'
+import ContactList from '../pages/ContactList'
 
 function App() {
   return (
@@ -68,6 +69,7 @@ function App() {
             </PrivateRoute>
           }>
           <Route path="profile" element={<Profile />} />
+          <Route path="contact-list" element={<ContactList />} />
           <Route path="history" element={<History />}>
             <Route path="history2" element={<History2 />} />
           </Route>

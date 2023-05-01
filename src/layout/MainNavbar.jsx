@@ -24,20 +24,20 @@ const MainNavbar = () => {
                 }>
                 Home
               </NavLink>
-              <NavLink
+              {/* <NavLink
                 to="about"
                 className={({ isActive }) =>
                   isActive ? 'active nav-link' : 'nav-link'
                 }>
                 About
-              </NavLink>
-              <NavLink
+              </NavLink> */}
+              {/* <NavLink
                 to="edit-contact"
                 className={({ isActive }) =>
                   isActive ? 'active nav-link' : 'nav-link'
                 }>
                 EditContact
-              </NavLink>
+              </NavLink> */}
               <NavLink
                 to="add-contact"
                 className={({ isActive }) =>
@@ -50,7 +50,7 @@ const MainNavbar = () => {
                 className={({ isActive }) =>
                   isActive ? 'active nav-link' : 'nav-link'
                 }>
-                Contact
+                Contacts
               </NavLink>
               <NavLink
                 to="dashboard/profile"
